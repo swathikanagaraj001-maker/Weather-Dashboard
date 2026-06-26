@@ -1,24 +1,21 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>E-Commerce Product Catalog</title>
-    <link rel="stylesheet" href="style.css">
+<title>Weather Dashboard</title>
+<link rel="stylesheet" href="style.css">
+
 </head>
+
 <body>
 
-    <h1>🛒 E-Commerce Product Catalog</h1>
+<h1>Weather Dashboard</h1>
 
-    <input type="text" id="search" placeholder="Search Product..." onkeyup="searchProducts()">
+<input type="text" id="city" placeholder="Enter City">
+<button onclick="getWeather()">Search</button>
 
-    <div id="productContainer"></div>
+<div id="result"></div>
 
-    <div class="cart">
-        <h2>Cart</h2>
-        <div id="cartItems"></div>
-        <h3>Total Amount: ₹<span id="totalAmount">0</span></h3>
-    </div>
-
-    <script src="script.js"></script>
+<script src="script.js"></script>
 
 </body>
 </html>
