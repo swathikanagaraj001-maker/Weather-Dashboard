@@ -1,121 +1,33 @@
-const products = [
-    {id:1, name:"Laptop", price:50000},
-    {id:2, name:"Mobile", price:20000},
-    {id:3, name:"Headphones", price:1500},
-    {id:4, name:"Smart Watch", price:3000},
-    {id:5, name:"Keyboard", price:800}
-];
+function getWeather() {
 
-let cart = {};
+    const city = document.getElementById("city").value;
 
-function displayProducts(productList){
+    const weatherData = {
+        Chennai: { temp: 34, humidity: 70, wind: 5 },
+        Trichy: { temp: 36, humidity: 60, wind: 4 },
+        Madurai: { temp: 35, humidity: 65, wind: 6 },
+        Coimbatore: { temp: 31, humidity: 72, wind: 7 },
+        Salem: { temp: 33, humidity: 68, wind: 5 },
+        Erode: { temp: 34, humidity: 62, wind: 4 },
+        Tirunelveli: { temp: 37, humidity: 58, wind: 6 },
+        Thanjavur: { temp: 35, humidity: 67, wind: 5 },
+        Vellore: { temp: 32, humidity: 70, wind: 4 },
+        Kanyakumari: { temp: 30, humidity: 80, wind: 8 }
+    };
 
-    const container =
-    document.getElementById("productContainer");
+    const data = weatherData[city];
 
-    container.innerHTML = "";
-
-    productList.forEach(product => {
-
-        container.innerHTML += `
-        <div class="product">
-            <h3>${product.name}</h3>
-            <p>₹${product.price}</p>
-
-            <button onclick="addToCart(${product.id})">
-            Add to Cart
-            </button>
-        </div>
+    if (data) {
+        document.getElementById("result").innerHTML = `
+            <h2>${city}</h2>
+            <p><strong>Temperature:</strong> ${data.temp}°C</p>
+            <p><strong>Humidity:</strong> ${data.humidity}%</p>
+            <p><strong>Wind Speed:</strong> ${data.wind} km/h</p>
         `;
-    });
-}
-
-function addToCart(id){
-
-    if(cart[id]){
-        cart[id].qty++;
-    }
-    else{
-        const product =
-        products.find(p => p.id === id);
-
-        cart[id] = {
-            ...product,
-            qty:1
-        };
-    }
-
-    updateCart();
-}
-
-function increaseQty(id){
-    cart[id].qty++;
-    updateCart();
-}
-
-function decreaseQty(id){
-
-    cart[id].qty--;
-
-    if(cart[id].qty <= 0){
-        delete cart[id];
-    }
-
-    updateCart();
-}
-
-function updateCart(){
-
-    const cartItems =
-    document.getElementById("cartItems");
-
-    cartItems.innerHTML = "";
-
-    let total = 0;
-
-    Object.values(cart).forEach(item => {
-
-        const subtotal =
-        item.price * item.qty;
-
-        total += subtotal;
-
-        cartItems.innerHTML += `
-        <div class="cart-item">
-
-            <h4>${item.name}</h4>
-
-            <button class="qty-btn"
-            onclick="decreaseQty(${item.id})">-</button>
-
-            ${item.qty}
-
-            <button class="qty-btn"
-            onclick="increaseQty(${item.id})">+</button>
-
-            <p>Subtotal: ₹${subtotal}</p>
-
-        </div>
+    } else {
+        document.getElementById("result").innerHTML = `
+            <p style="color:red;">City not found!</p>
+            <p>Try: Chennai, Trichy, Madurai, Coimbatore, Salem</p>
         `;
-    });
-
-    document.getElementById("totalAmount")
-    .innerText = total;
+    }
 }
-
-function searchProducts(){
-
-    const value =
-    document.getElementById("search")
-    .value.toLowerCase();
-
-    const filtered =
-    products.filter(product =>
-        product.name.toLowerCase()
-        .includes(value)
-    );
-
-    displayProducts(filtered);
-}
-
-displayProducts(products);
